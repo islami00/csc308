@@ -12,42 +12,71 @@ from scipy.linalg import toeplitz
         make_t
         make_b
         make_c
+    Todo: Make
 """
 
 
-def make_t():
+def make_t(n=4):
     """
     Mutative version of the t matrix based on example
 
     """
-    first_col = [2, -1, 0, 0]
+    first_col = np.zeros((1, n))
+    first_col[0, 0] = 2
+    first_col[0, 1] = -1
     toe = linalg.toeplitz(first_col)
     toe[0, 0] = 1
 
     return toe
 
 
-def make_b():
+def make_b(n=4):
     """
     Mutative version of these based on example
     """
-    first_col = [2, -1, 0, 0]
+    first_col = np.zeros((1, n))
+    first_col[0, 0] = 2
+    first_col[0, 1] = -1
     toe = linalg.toeplitz(first_col)
     toe[0, 0] = 1
-    toe[3, 3] = 1
+    toe[n - 1, n - 1] = 1
     return toe
 
 
-def make_c():
-    some_circ = linalg.circulant([2, -1, 0, -1])
+def make_c(n=4):
+    first_col = np.zeros((1, n))
+    first_col[0, 0] = 2
+    first_col[0, 1] = -1
+    first_col[0, n - 1] = -1
+    some_circ = linalg.circulant(first_col)
     return some_circ
 
 
-def make_k():
-    first_col = [2, -1, 0, 0]
+def make_k(n=4):
+    first_col = np.zeros((1, n))
+    first_col[0, 0] = 2
+    first_col[0, 1] = -1
     toe = linalg.toeplitz(first_col)
     return toe
 
+
+"""
+    Exec:
+"""
+k = make_k()
+t = make_t()
+b = make_b()
+c = make_c()
+print(f"""
+  Matrix k:
+    {k}
+  Matrix t:
+    {t}
+  Matrix b:
+    {b}
+  Matrix c:
+    {c}
+""")
 
 """
     APPENDIX:
@@ -149,7 +178,7 @@ def others_from_class():
     """
         For this, I assume B and T are the last two examples he gave, concluding.
 
-        T: Free-fixed matrix
+        T: Free-fixed matrix; Aka Top.
         B: Both free matrix
     More
         Fixed: The displacement is zero. I.e u makes it zero.
