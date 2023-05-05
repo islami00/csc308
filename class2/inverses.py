@@ -34,6 +34,28 @@ def make_linear_eqn(n=3):
     return linalg.solve(a, b)
 
 
+def make_determinant(n=3):
+    first_col = prep_zeros(n)
+    a = linalg.toeplitz(first_col)
+    return linalg.det(a)
+
+
+def make_eigen(n=3):
+    """
+    Diag reference: https://stackoverflow.com/questions/58139494/how-can-i-create-a-diagonal-matrix-with-numpy
+    Eqn Ref: https://byjus.com/jee/eigenvalues-and-eigenvectors-problems-and-solutions/
+    """
+
+    first_col = prep_zeros(n)
+
+    find_eigens = linalg.toeplitz(first_col)
+    ones = np.diag(np.ones(n))
+    # Subtracted from matrix to form polynomial
+    t_diagonal = linalg.block_diag(ones)
+
+    return linalg.eig(find_eigens, t_diagonal)
+
+
 print(
     f"""
 inv: 
@@ -41,5 +63,9 @@ inv:
 
 eqn: 
     {make_linear_eqn()}
+det:
+    {make_determinant()}
+eigen:
+    {make_eigen()}
 """
 )
